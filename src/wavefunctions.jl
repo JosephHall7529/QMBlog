@@ -60,3 +60,9 @@ P::Array{Complex,3} - x is horizontal
 # moral
 the probability is 1 everywhere with the old wavefunction defn
 """
+function P(x::Float64,t::Float64; p::Float64=x, m::Float64=1., free::String="y")
+    return real(ψ(x,t; p=p, m=m, free=free).*conj(ψ(x,t; p=p, m=m, free=free)))
+end
+function P(x::Array{Float64,1},t::Array{Float64,1}; p::Array{Float64,1}=x, m::Float64=1., free::String="y")
+    return real(ψ(x,t; p=p, m=m, free=free).*conj(ψ(x,t; p=p, m=m, free=free)))
+end 
