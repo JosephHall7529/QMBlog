@@ -19,7 +19,7 @@ this example only takes into account one space dimension
 
 # output
 
-    ψ::Array{Complex,3} - x is horizontal 
+    ψ::Array{Complex,3} - x is horizontal
                           p is vertical
                           t is depth
 
@@ -38,3 +38,25 @@ function ψ(x::Array{Float64,1},t::Array{Float64,1}; p::Array{Float64,1}=x, m::F
         return [exp(im*(dot(p[i],x[j]) - E*t) / ħ) for i in 1:length(p), j in 1:length(x), t in t]
     end
 end
+
+@doc raw"""
+the probability amplitude is given as the modulus squared of the wavefunction
+
+# input
+x::Float64
+::Array{Float64,1} - the spacial values
+t::Float64
+::Array{Float64,1} - the time values
+p::Float64
+::Array{Float64,1} - the momentum values
+m::Float64 - the mass of the particle
+free::String - are we dealing with a free particle or not
+
+# output
+P::Array{Complex,3} - x is horizontal
+                  p is vertical
+                  t is depth
+
+# moral
+the probability is 1 everywhere with the old wavefunction defn
+"""
