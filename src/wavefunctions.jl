@@ -82,16 +82,24 @@ P::Array{Complex,3} - x is horizontal
 # moral
 the probability is 1 everywhere with the old wavefunction defn
 """
-function P(x::Float64,t::Float64; p::Float64=x, m::Float64=1., free::String="y", localized::String="n",
-        len::Int=1000)
-    return real(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len).*
-        conj(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len)))
+function P(x::Float64,t::Float64=[1.]; p::Float64=x, m::Float64=1., free::String="y", localized::String="y",
+        len::Int=1000, fn::String="ψ")
+    if fn == "ψ"
+        return real(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len).*
+            conj(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len)))
+    elseif fn == "ϕ"
+        return real(ϕ(x; m=m, len=len).*conj(ϕ(x; m=m, len=len)))
+    end
 end
-function P(x::Array{Float64,1},t::Array{Float64,1}; p::Array{Float64,1}=x, m::Float64=1., free::String="y",
-            localized::String="n", len::Int=1000)
-    return real(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len).*
-        conj(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len)))
-end
+function P(x::Array{Float64,1},t::Array{Float64,1}=[1.]; p::Array{Float64,1}=x, m::Float64=1., free::String="y",
+            localized::String="y", len::Int=1000, fn::String="ψ")
+    if fn == "ψ"
+        return real(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len).*
+            conj(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len)))
+    elseif fn == "ϕ"
+        return real(ϕ(x; m=m, len=len)[:].*conj(ϕ(x; m=m, len=len)[:]))
+    end
+end 
 
 @doc raw"""
     the momentum space wavefunction, or more exactly the Fourier transform of the position wavefunction
