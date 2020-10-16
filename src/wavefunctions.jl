@@ -92,3 +92,28 @@ function P(x::Array{Float64,1},t::Array{Float64,1}; p::Array{Float64,1}=x, m::Fl
     return real(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len).*
         conj(ψ(x,t; p=p, m=m, free=free, localized=localized, len=len)))
 end
+
+@doc raw"""
+    the momentum space wavefunction, or more exactly the Fourier transform of the position wavefunction
+
+    # input
+    p::Float64
+    ::Array{Float64,1} - the momentum values
+    m::Float64 - the mass of the particle
+    len::Int - the number of values we give to the integral over x
+
+    # output
+    ϕ::Array{Complex,2} - x is horizontal
+"""
+function ϕ(p::Float64; m::Float64=1., len::Int=1000)
+    x = range(-abs(100*p), 100*p, length=len)
+    ψ = rand(len)[1,:]
+    return (1/sqrt(2π*ħ))*(1/len)*sum(ψ .* [exp(-im*(dot(p[i],x[j])) / ħ)
+            for i in 1:length(p), j in 1:len], dims=2)
+end
+function ϕ(p::Array{Float64,1}; m::Float64=1., len::Int=1000)
+    x = range(-abs(100*minimum(p)), 100*maximum(p), length=len)
+    ψ = rand(len)[1,:]
+    return (1/sqrt(2π*ħ))*(1/len)*sum(ψ .* [exp(-im*(dot(p[i],x[j])) / ħ)
+            for i in 1:length(p), j in 1:len], dims=2)
+end
