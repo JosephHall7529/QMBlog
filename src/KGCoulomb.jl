@@ -1,3 +1,4 @@
+module KG
 include("../../Constants/src/Short.jl")
 
 print("What is the mass of the particle you are dealing with? ")
@@ -37,6 +38,17 @@ end
 @doc raw"""
     R
 
+# input
+r - position
+n - principal number
+l - orbital energy level
+## kwargs
+Z - Charge density of nucleus
+m0 - mass of nucleus
+
+# output
+R - wavefunction 
+
 We can see examples of this function
 
 "QMBlog/examples/Ex1.10.ipynb"
@@ -46,3 +58,4 @@ function R(r,n,l; kw...)
 end
 
 export R
+end
