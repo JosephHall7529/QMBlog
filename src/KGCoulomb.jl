@@ -1,7 +1,7 @@
-include("../Constants/src/Short.jl")
+include("../../Constants/src/Short.jl")
 
-print("What is the mass value of the particle you are dealing with? ")
-m0 = readline()
+print("What is the mass of the particle you are dealing with? ")
+m0 = parse(Float64,readline())
 
 function ε(n,l; Z=10, m0=m0)
     rest = m0*c^2
@@ -34,6 +34,13 @@ function f(r,n,l; N=10, a0=1, kw...)
     return sum(S)
 end
 
+@doc raw"""
+    R
+
+We can see examples of this function
+
+"QMBlog/examples/Ex1.10.ipynb"
+"""
 function R(r,n,l; kw...)
     return ρ(r,n,l; kw...)^(ν(Z))*exp(-ρ(r,n,l; kw...)/2)*f(r,n,l; kw...)
 end
