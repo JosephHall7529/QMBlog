@@ -1,10 +1,9 @@
-module KG
 include("../../Constants/src/Short.jl")
 
 print("What is the mass of the particle you are dealing with? ")
 m0 = parse(Float64,readline())
 
-function ε(n,l; Z=10, m0=m0)
+function ε(n,l; Z=10, m0=m0, kw...)
     rest = m0*c^2
     return rest/sqrt(1+((Z*α)^2)/(n-l-1/2+sqrt((l+1/2)^2-(Z*α)^2))^2)
 end
@@ -47,7 +46,7 @@ Z - Charge density of nucleus
 m0 - mass of nucleus
 
 # output
-R - wavefunction 
+R - wavefunction
 
 We can see examples of this function
 
@@ -55,7 +54,4 @@ We can see examples of this function
 """
 function R(r,n,l; kw...)
     return ρ(r,n,l; kw...)^(ν(Z))*exp(-ρ(r,n,l; kw...)/2)*f(r,n,l; kw...)
-end
-
-export R
 end
