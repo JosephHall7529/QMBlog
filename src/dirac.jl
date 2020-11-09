@@ -1,4 +1,4 @@
-using Roots, Random
+using Roots, Random, Plots
 
 include("../../Constants/src/Short.jl")
 
@@ -326,6 +326,28 @@ end
 @doc """
     Const
 
+This function uses the normalisation condition (i.e we constrain the wavefunction to exist somewhere) to determine the 6 Constants defining the wavefunction.
+
+# input
+- C - an arbitrarily chosen constant by which all other constants defining the wavefuncton are evaluated w.r.t
+
+## kwargs
+- Cd - a constant that can be derived by finding the root of the normalisation condition
+- V0::Float64=50.0 -
+- E="" - Energy of the particle
+- m0::Float64=938.0 - The mass of the particle
+- state::String="sup" - the state of the partile
+    * "sup" - spin up particle
+    * "sdp" - spin down particle
+    * "suap" - spin up antiparticle
+    * "sdap" - spin down antiparticle
+- rel::Float64="y" - relativistic ("y"/ "n")
+- a::Float64=20.0 - half the width of the potential well
+- s::Float64=42.0 - pseudorandom generator value
+- zi::Float64=-50.0 - z axis starting point
+- step::Float64=0.1 - step size of domain
+- zf::Float64=50.0 - z axis end point
+- β="" - the width of the guassian distribution
 
 """
 function Const(C=1e-4; Cd=-0, V0::Float64=50.0, E="", m0::Float64=938.0, state::String="sup", rel="y", a::Float64=20.0, s::Int=42, zi::Float64=-50.0, step::Float64=0.1, zf::Float64=50.0, β="")
@@ -393,7 +415,7 @@ function plotdirac(C=1e-4; V0::Float64=50.0, E="", m0::Float64=938.0, state::Str
     pot = potential(V0; zi=zi, step=step, zf=zf, a=a).*upper
 
     P = plot(z, D, background_color="darkgrey", legend=false)
-    plot!(z, pot)
+    # plot!(z, pot)
 
     return P
 end
